@@ -37,8 +37,6 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({error: "Cloudinary credentials not found!"}, {status: 500})
         }   
 
-
-
         const formData = await request.formData();
         const file = formData.get("file") as File | null;
         const title = formData.get("title") as string;
