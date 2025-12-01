@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
 import  {auth} from '@clerk/nextjs/server';
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@/app/generated/prisma/client";
 import { Questrial } from 'next/font/google';
 
 const prisma = new PrismaClient();
