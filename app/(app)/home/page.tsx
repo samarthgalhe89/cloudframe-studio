@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import VideoCard from "@/components/VideoCard";
-import { Video } from "@/app/generated/prisma/client";
+import { Video } from "@prisma/client";
 import { toast } from "react-hot-toast";
 
 function Home() {
