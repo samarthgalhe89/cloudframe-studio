@@ -3,7 +3,10 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET(request: NextRequest) {
   try {
+    const publicOnly = request.nextUrl.searchParams.get("publicOnly") === "true";
+
     const videos = await prisma.video.findMany({
+      where: publicOnly ? {} : undefined,
       orderBy: {
         createdAt: "desc",
       },
