@@ -102,15 +102,9 @@ cloudframe-studio/
 
 ---
 
-## **License**
-
-MIT
-
----
-
 ## **Author**
 
-Samarth (replace with your name and contact info)
+Samarth Galhe
 
 ---
 
@@ -125,4 +119,3 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 - [Cloudinary](https://cloudinary.com/)
 - [Next.js](https://nextjs.org/)
 - [Clerk](https://clerk.com/)
--
