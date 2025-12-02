@@ -1,10 +1,6 @@
-// app/api/video-save/route.ts
-
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
 import { auth } from "@clerk/nextjs/server";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
   const { userId } = await auth();
@@ -43,14 +39,12 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json(video, { status: 200 });
+    return NextResponse.json(video);
   } catch (error) {
-    console.error("Failed to save video metadata", error);
+    console.error("Failed to save video metadata:", error);
     return NextResponse.json(
       { error: "Failed to save video metadata" },
       { status: 500 }
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }
