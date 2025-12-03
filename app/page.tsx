@@ -419,24 +419,30 @@ export default function LandingPage() {
       {/* Full-screen modal preview */}
       {modalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
+          onClick={closeModal}
         >
-          <div className="relative mx-4 w-full max-w-4xl rounded-2xl bg-white p-4 shadow-2xl">
+          <div
+            className="relative mx-4 w-full max-w-4xl rounded-2xl bg-white p-4 shadow-2xl z-[10000]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* X BUTTON – always clickable */}
             <button
               onClick={closeModal}
               aria-label="Close preview"
-              className="absolute right-3 top-3 inline-flex items-center justify-center rounded-full bg-[#F5F1E8] p-2 shadow"
+              className="absolute right-3 top-3 z-[10001] pointer-events-auto inline-flex items-center justify-center rounded-full bg-[#F5F1E8] p-2 shadow hover:bg-[#e8e0d3]"
             >
               <X />
             </button>
 
-            <div className="aspect-video w-full overflow-hidden rounded-lg bg-black">
+            {/* VIDEO AREA (ensures no overlap blocks clicks) */}
+            <div className="aspect-video w-full overflow-hidden rounded-lg bg-black pointer-events-none">
               <video
                 ref={modalVideoRef}
                 src="/sample-preview.mp4"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover pointer-events-auto"
                 controls
                 autoPlay
                 playsInline
