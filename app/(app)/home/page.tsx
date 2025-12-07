@@ -33,23 +33,19 @@ function Home() {
     fetchVideos();
   }, [fetchVideos]);
 
-  // ⭐ FIXED: Cloudinary-safe download using Blob
   const handleDownload = useCallback(async (url: string, title: string) => {
     try {
       const response = await fetch(url);
 
-      // convert the response to a Blob
       const blob = await response.blob();
       const blobUrl = URL.createObjectURL(blob);
-
-      // create a hidden <a> link and trigger click
+      
       const link = document.createElement("a");
       link.href = blobUrl;
       link.download = `${title}.mp4`;
       document.body.appendChild(link);
       link.click();
 
-      // cleanup
       URL.revokeObjectURL(blobUrl);
       link.remove();
     } catch (error) {
