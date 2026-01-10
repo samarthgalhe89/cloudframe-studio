@@ -12,9 +12,24 @@ function VideoUpload() {
 
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const router = useRouter();
   const MAX_FILE_SIZE = 60 * 1024 * 1024;
+
+  React.useEffect(() => {
+    if (!file) {
+      setPreviewUrl(null);
+      return;
+    }
+    const objectUrl = URL.createObjectURL(file);
+    setPreviewUrl(objectUrl);
+
+    // cleanup
+    return () => {
+      URL.revokeObjectURL(objectUrl);
+    };
+  }, [file]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -176,9 +191,19 @@ function VideoUpload() {
             <h2 className="text-xl font-semibold mb-2 text-[#6B5335]">
               Preview:
             </h2>
-            <div className="w-full h-64 bg-white border-2 border-[#E8DCC8] rounded-xl flex items-center justify-center text-[#B8A58A] shadow-sm">
-              No preview available
-            </div>
+            {previewUrl ? (
+              <div className="w-full h-64 bg-white border-2 border-[#E8DCC8] rounded-xl overflow-hidden shadow-sm relative">
+                <video
+                  src={previewUrl}
+                  controls
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            ) : (
+              <div className="w-full h-64 bg-white border-2 border-[#E8DCC8] rounded-xl flex items-center justify-center text-[#B8A58A] shadow-sm">
+                No preview available
+              </div>
+            )}
           </div>
 
           {/* Upload Button */}

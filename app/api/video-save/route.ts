@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
         originalSize: String(originalSize),
         compressedSize: String(compressedSize),
         duration: duration ?? 0,
+        userId,
       },
     });
 

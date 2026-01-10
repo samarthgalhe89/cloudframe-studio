@@ -1,12 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@clerk/nextjs/server";
 
 export async function GET(request: NextRequest) {
   try {
-    const publicOnly = request.nextUrl.searchParams.get("publicOnly") === "true";
+    const { userId } = await auth();
+
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
     const videos = await prisma.video.findMany({
-      where: publicOnly ? {} : undefined,
+      where: {
+        userId,
+      },
       orderBy: {
         createdAt: "desc",
       },
