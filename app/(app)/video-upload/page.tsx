@@ -196,6 +196,8 @@ function VideoUpload() {
                 <video
                   src={previewUrl}
                   controls
+                  controlsList="nodownload"
+                  onContextMenu={(e) => e.preventDefault()}
                   className="w-full h-full object-contain"
                 />
               </div>
