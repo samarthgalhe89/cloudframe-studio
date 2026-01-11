@@ -19,6 +19,11 @@ export default withAuth(
       authorized: ({ token, req }) => {
         const pathname = req.nextUrl.pathname;
 
+        // Allow NextAuth API routes to bypass authorization
+        if (pathname.startsWith('/api/auth')) {
+          return true;
+        }
+
         // Public routes that don't require authentication
         const publicRoutes = [
           "/",

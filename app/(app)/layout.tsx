@@ -35,7 +35,7 @@ export default function AppLayout({
   };
 
   const handleSignOut = async () => {
-    await signOut({ callbackUrl: "/sign-in" });
+    await signOut({ callbackUrl: "/" });
   };
 
   return (
@@ -113,8 +113,8 @@ export default function AppLayout({
                 <Link
                   href={item.href}
                   className={`flex items-center space-x-4 px-4 py-2 rounded-lg transition-all ${pathname === item.href
-                      ? "bg-[#A88B5F] text-white shadow-md"
-                      : "text-[#6B5335] hover:bg-[#D4C4A8]"
+                    ? "bg-[#A88B5F] text-white shadow-md"
+                    : "text-[#6B5335] hover:bg-[#D4C4A8]"
                     }`}
                   onClick={() => setSidebarOpen(false)}
                 >
