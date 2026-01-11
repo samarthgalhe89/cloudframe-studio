@@ -343,7 +343,7 @@ export default function LandingPage() {
                 step: "1",
                 title: "Connect & log in",
                 description:
-                  "Sign in with Clerk and instantly access your secure media dashboard.",
+                  "Sign in securely and instantly access your media dashboard.",
               },
               {
                 step: "2",

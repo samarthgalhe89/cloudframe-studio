@@ -3,7 +3,8 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
-import { getAuth } from "@clerk/nextjs/server";  // ✔ CORRECT IMPORT
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 // Cloudinary config
 cloudinary.config({
@@ -18,10 +19,9 @@ interface CloudinaryUploadResult {
 }
 
 export async function POST(request: NextRequest) {
-  // ✔ Correct way to get userId in your Clerk version
-  const { userId } = getAuth(request);
+  const session = await getServerSession(authOptions);
 
-  if (!userId) {
+  if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

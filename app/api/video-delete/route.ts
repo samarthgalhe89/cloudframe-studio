@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { v2 as cloudinary } from "cloudinary";
-import { auth } from "@clerk/nextjs/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -11,8 +12,8 @@ cloudinary.config({
 
 export async function POST(req: NextRequest) {
   try {
-    const { userId } = await auth();
-    if (!userId) {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -33,7 +34,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Video not found" }, { status: 404 });
     }
 
-    if (video.userId !== userId) {
+    if (video.userId !== session.user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
 

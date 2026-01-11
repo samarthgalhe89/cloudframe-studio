@@ -1,38 +1,48 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
-// Public marketing pages
-const isPublicRoute = createRouteMatcher([
-  "/",
-  "/sign-in",
-  "/sign-up",
-  "/pricing",
-  "/easy-wins",
-  "/features",
-]);
+export default withAuth(
+  function middleware(req) {
+    const token = req.nextauth.token;
+    const url = new URL(req.url);
+    const pathname = url.pathname;
 
-export default clerkMiddleware(async (auth, req) => {
-  const { userId } = await auth();
-  const url = new URL(req.url);
-  const pathname = url.pathname;
+    // If logged in and visiting "/", redirect to /home
+    if (token && pathname === "/") {
+      return NextResponse.redirect(new URL("/home", req.url));
+    }
 
-  // ⭐ If logged in & visiting "/", redirect to /home
-  if (userId && pathname === "/") {
-    return NextResponse.redirect(new URL("/home", req.url));
-  }
-
-  // ⭐ Allow all public routes
-  if (isPublicRoute(req)) {
     return NextResponse.next();
-  }
+  },
+  {
+    callbacks: {
+      authorized: ({ token, req }) => {
+        const pathname = req.nextUrl.pathname;
 
-  // ⭐ Block protected routes when user is NOT logged in
-  if (!userId) {
-    return NextResponse.redirect(new URL("/sign-in", req.url));
-  }
+        // Public routes that don't require authentication
+        const publicRoutes = [
+          "/",
+          "/sign-in",
+          "/sign-up",
+          "/pricing",
+          "/easy-wins",
+          "/features",
+        ];
 
-  return NextResponse.next();
-});
+        // Check if the route is public
+        if (publicRoutes.includes(pathname)) {
+          return true;
+        }
+
+        // For all other routes, require authentication
+        return !!token;
+      },
+    },
+    pages: {
+      signIn: "/sign-in",
+    },
+  }
+);
 
 export const config = {
   matcher: [

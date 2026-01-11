@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
-import { auth } from "@clerk/nextjs/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 cloudinary.config({
@@ -17,10 +18,10 @@ interface CloudinaryUploadResult {
 }
 
 export async function POST(request: NextRequest) {
-  const { userId } = await auth();
+  const session = await getServerSession(authOptions);
 
   try {
-    if (!userId) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 400 });
     }
 
@@ -60,7 +61,7 @@ export async function POST(request: NextRequest) {
         originalSize,
         compressedSize: String(result.bytes),
         duration: result.duration ?? 0,
-        userId,
+        userId: session.user.id,
       },
     });
 

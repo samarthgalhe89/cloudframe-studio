@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useClerk, useUser } from "@clerk/nextjs";
+import { useSession, signOut } from "next-auth/react";
 import {
   LogOutIcon,
   MenuIcon,
@@ -11,12 +11,10 @@ import {
   Share2Icon,
   UploadIcon,
   ImageIcon,
+  User,
 } from "lucide-react";
 
-import { Toaster } from "react-hot-toast";
-
 const sidebarItems = [
-
   { href: "/home", icon: LayoutDashboardIcon, label: "Home Page" },
   { href: "/social-share", icon: Share2Icon, label: "Social Share" },
   { href: "/video-upload", icon: UploadIcon, label: "Video Upload" },
@@ -30,15 +28,14 @@ export default function AppLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const { signOut } = useClerk();
-  const { user } = useUser();
+  const { data: session } = useSession();
 
   const handleLogoClick = () => {
     router.push("/");
   };
 
   const handleSignOut = async () => {
-    await signOut();
+    await signOut({ callbackUrl: "/sign-in" });
   };
 
   return (
@@ -76,20 +73,15 @@ export default function AppLayout({
               </Link>
             </div>
             <div className="flex-none flex items-center space-x-4">
-              {user && (
+              {session?.user && (
                 <>
-                  <div className="avatar">
-                    <div className="w-8 h-8 rounded-full">
-                      <img
-                        src={user.imageUrl}
-                        alt={
-                          user.username || user.emailAddresses[0].emailAddress
-                        }
-                      />
+                  <div className="avatar placeholder">
+                    <div className="w-8 h-8 rounded-full bg-[#6B5335] text-white flex items-center justify-center">
+                      <User className="w-5 h-5" />
                     </div>
                   </div>
                   <span className="text-sm truncate max-w-xs lg:max-w-md text-[#6B5335]">
-                    {user.username || user.emailAddresses[0].emailAddress}
+                    {session.user.email}
                   </span>
                   <button
                     onClick={handleSignOut}
@@ -121,8 +113,8 @@ export default function AppLayout({
                 <Link
                   href={item.href}
                   className={`flex items-center space-x-4 px-4 py-2 rounded-lg transition-all ${pathname === item.href
-                    ? "bg-[#A88B5F] text-white shadow-md"
-                    : "text-[#6B5335] hover:bg-[#D4C4A8]"
+                      ? "bg-[#A88B5F] text-white shadow-md"
+                      : "text-[#6B5335] hover:bg-[#D4C4A8]"
                     }`}
                   onClick={() => setSidebarOpen(false)}
                 >
@@ -132,7 +124,7 @@ export default function AppLayout({
               </li>
             ))}
           </ul>
-          {user && (
+          {session?.user && (
             <div className="p-4 border-t-2 border-[#D4C4A8]">
               <button
                 onClick={handleSignOut}
@@ -145,7 +137,6 @@ export default function AppLayout({
           )}
         </aside>
       </div>
-      <Toaster />
     </div>
   );
 }
