@@ -12,12 +12,14 @@ import {
   UploadIcon,
   ImageIcon,
   User,
+  Crop,
 } from "lucide-react";
 
 const sidebarItems = [
   { href: "/home", icon: LayoutDashboardIcon, label: "Home Page" },
   { href: "/social-share", icon: Share2Icon, label: "Social Share" },
   { href: "/video-upload", icon: UploadIcon, label: "Video Upload" },
+  { href: "/video-crop", icon: Crop, label: "Smart Cropper" },
 ];
 
 export default function AppLayout({

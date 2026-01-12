@@ -23,7 +23,6 @@ export async function POST(req: NextRequest) {
   const paramsToSign = {
     timestamp,
     folder,
-    eager: "q_auto,f_mp4",  // <-- MUST BE HERE
   };
 
   const signature = cloudinary.utils.api_sign_request(
@@ -37,6 +36,5 @@ export async function POST(req: NextRequest) {
     timestamp,
     signature,
     folder,
-    eager: "q_auto,f_mp4",
   });
 }
