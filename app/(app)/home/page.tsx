@@ -39,7 +39,7 @@ function Home() {
 
       const blob = await response.blob();
       const blobUrl = URL.createObjectURL(blob);
-      
+
       const link = document.createElement("a");
       link.href = blobUrl;
       link.download = `${title}.mp4`;
@@ -54,43 +54,41 @@ function Home() {
   }, []);
 
   const handleDelete = async (id: string, publicId: string) => {
-  try {
-    await axios.post("/api/video-delete", { id, publicId });
-    toast.success("Video deleted successfully!");
+    try {
+      await axios.post("/api/video-delete", { id, publicId });
+      toast.success("Video deleted successfully!");
 
-    setVideos((prev) => prev.filter((v) => v.id !== id));
-  } catch (error) {
-    toast.error("Failed to delete video.");
-  }
-};
+      setVideos((prev) => prev.filter((v) => v.id !== id));
+    } catch (error) {
+      toast.error("Failed to delete video.");
+    }
+  };
 
 
   if (loading) {
-    return <div className="text-center p-10 text-[#6B5335]">Loading...</div>;
+    return <div className="text-center p-10 text-[#94A3B8]">Loading...</div>;
   }
 
   return (
-  <div className="container mx-auto p-4">
-    <h1 className="text-2xl font-bold mb-4 text-[#6B5335]">Videos</h1>
-
-    {videos.length === 0 ? (
-      <div className="text-center text-lg text-[#8B6F47]">
-        No videos available
-      </div>
-    ) : (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {videos.map((video) => (
-          <VideoCard
-            key={video.id}
-            video={video}
-            onDownload={handleDownload}
-            onDelete={handleDelete}
-          />
-        ))}
-      </div>
-    )}
-  </div>
-);
+    <div className="container mx-auto p-4">
+      {videos.length === 0 ? (
+        <div className="text-center text-lg text-[#94A3B8]">
+          No videos available
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {videos.map((video) => (
+            <VideoCard
+              key={video.id}
+              video={video}
+              onDownload={handleDownload}
+              onDelete={handleDelete}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Home;

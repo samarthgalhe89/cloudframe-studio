@@ -1,3 +1,55 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Sunset Creator Theme */
+    --background: #FFFBF5;
+    --surface: #FFFFFF;
+    --accent: #F97316;
+    --accent-hover: #FB923C;
+    --accent-secondary: #EC4899;
+    --text-primary: #1C1917;
+    --text-secondary: #78716C;
+    --border: #FED7AA;
+  }
+
+  html {
+    @apply bg-[#FFFBF5];
+  }
+
+  body {
+    @apply bg-[#FFFBF5] text-[#1C1917];
+  }
+
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #FED7AA;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #F97316, #EC4899);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #FB923C, #EC4899);
+  }
+
+  /* Selection */
+  ::selection {
+    background: #F97316;
+    color: white;
+  }
+
+  /* Gradient utility */
+  .gradient-sunset {
+    background: linear-gradient(135deg, #F97316, #EC4899);
+  }
+}

@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CloudFrame Studio",
+  title: "Frameo",
   description: "Upload, compress, and manage your media",
 };
 

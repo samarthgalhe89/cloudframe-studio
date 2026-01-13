@@ -96,29 +96,37 @@ function VideoUpload() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#F5F1E8] flex justify-center px-4 py-10">
+    <div className="min-h-screen w-full bg-[#FFFBF5] flex justify-center px-4 py-10">
       <div className="w-full max-w-3xl">
 
-        <h1 className="text-4xl font-bold text-center mb-10 text-[#6B5335]">
-          Video Upload
-        </h1>
+        {/* Features Grid */}
+        <div className="grid grid-cols-2 gap-4 mb-10">
+          <div className="p-4 bg-white rounded-xl border border-[#FED7AA] text-center">
+            <div className="text-2xl mb-2">🗜️</div>
+            <div className="text-sm font-medium text-[#1C1917]">Auto Compression</div>
+          </div>
+          <div className="p-4 bg-white rounded-xl border border-[#FED7AA] text-center">
+            <div className="text-2xl mb-2">⚡</div>
+            <div className="text-sm font-medium text-[#1C1917]">Fast Processing</div>
+          </div>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-10">
 
           {/* Upload File */}
           <div>
-            <h2 className="text-2xl font-semibold mb-3 text-[#6B5335]">
+            <h2 className="text-2xl font-semibold mb-3 text-[#1C1917]">
               Upload Video
             </h2>
 
-            <label className="block text-[#8B6F47] mb-2">Choose a video file</label>
+            <label className="block text-[#1C1917]/70 mb-2">Choose a video file</label>
 
             <div className="flex items-center gap-3">
               <label
                 className="
-                  bg-[#A88B5F] hover:bg-[#8B6F47]
-                  text-white px-5 py-3 rounded-lg cursor-pointer
-                  transition font-semibold shadow-md
+                  bg-gradient-to-r from-[#F97316] to-[#EC4899] hover:from-[#FB923C] hover:to-[#F472B6]
+                  text-[#1C1917] px-5 py-3 rounded-lg cursor-pointer
+                  transition-all duration-200 font-semibold shadow-lg shadow-[#6366F1]/30
                 "
               >
                 CHOOSE FILE
@@ -130,16 +138,16 @@ function VideoUpload() {
                 />
               </label>
 
-              <span className="text-[#8B6F47] text-sm">
+              <span className="text-[#1C1917]/70 text-sm">
                 {file ? file.name : "No file chosen"}
               </span>
             </div>
 
             {/* Progress bar */}
             {isUploading && (
-              <div className="w-full bg-[#E8DCC8] rounded-lg h-3 mt-4 overflow-hidden">
+              <div className="w-full bg-[#1E293B] rounded-lg h-3 mt-4 overflow-hidden">
                 <div
-                  className="h-full bg-[#A88B5F] transition-all"
+                  className="h-full bg-gradient-to-r from-[#6366F1] to-[#818CF8] transition-all shadow-lg shadow-[#6366F1]/50"
                   style={{ width: `${uploadProgress}%` }}
                 ></div>
               </div>
@@ -148,7 +156,7 @@ function VideoUpload() {
 
           {/* Title */}
           <div>
-            <h2 className="text-xl font-semibold mb-2 text-[#6B5335]">
+            <h2 className="text-xl font-semibold mb-2 text-[#1C1917]">
               Video Title
             </h2>
             <input
@@ -157,10 +165,10 @@ function VideoUpload() {
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter video title"
               className="
-                w-full bg-white border-2 border-[#E8DCC8]
-                focus:border-[#A88B5F] focus:ring-2 focus:ring-[#A88B5F]/20
-                rounded-lg px-4 py-3 outline-none text-[#6B5335]
-                placeholder:text-[#B8A58A]
+                w-full bg-white border-2 border-[#FED7AA]
+                focus:border-[#6366F1] focus:ring-2 focus:ring-[#6366F1]/20
+                rounded-lg px-4 py-3 outline-none text-[#1C1917]
+                placeholder:text-[#1C1917]/70
                 transition shadow-sm
               "
               required
@@ -169,7 +177,7 @@ function VideoUpload() {
 
           {/* Description */}
           <div>
-            <h2 className="text-xl font-semibold mb-2 text-[#6B5335]">
+            <h2 className="text-xl font-semibold mb-2 text-[#1C1917]">
               Description
             </h2>
             <textarea
@@ -177,10 +185,10 @@ function VideoUpload() {
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Write a short description..."
               className="
-                w-full h-32 bg-white border-2 border-[#E8DCC8]
-                focus:border-[#A88B5F] focus:ring-2 focus:ring-[#A88B5F]/20
-                rounded-lg px-4 py-3 outline-none text-[#6B5335]
-                placeholder:text-[#B8A58A]
+                w-full h-32 bg-white border-2 border-[#FED7AA]
+                focus:border-[#F97316] focus:ring-2 focus:ring-[#F97316]/20
+                rounded-lg px-4 py-3 outline-none text-[#1C1917]
+                placeholder:text-[#1C1917]/50
                 transition resize-none shadow-sm
               "
             />
@@ -188,11 +196,11 @@ function VideoUpload() {
 
           {/* Preview placeholder */}
           <div>
-            <h2 className="text-xl font-semibold mb-2 text-[#6B5335]">
+            <h2 className="text-xl font-semibold mb-2 text-[#1C1917]">
               Preview:
             </h2>
             {previewUrl ? (
-              <div className="w-full h-64 bg-white border-2 border-[#E8DCC8] rounded-xl overflow-hidden shadow-sm relative">
+              <div className="w-full h-64 bg-white border-2 border-[#FED7AA] rounded-xl overflow-hidden shadow-sm relative">
                 <video
                   src={previewUrl}
                   controls
@@ -202,7 +210,7 @@ function VideoUpload() {
                 />
               </div>
             ) : (
-              <div className="w-full h-64 bg-white border-2 border-[#E8DCC8] rounded-xl flex items-center justify-center text-[#B8A58A] shadow-sm">
+              <div className="w-full h-64 bg-white border-2 border-[#FED7AA] rounded-xl flex items-center justify-center text-[#1C1917]/50 shadow-sm">
                 No preview available
               </div>
             )}
@@ -213,9 +221,10 @@ function VideoUpload() {
             type="submit"
             disabled={isUploading}
             className="
-              w-full bg-[#A88B5F] hover:bg-[#8B6F47]
-              text-white py-4 rounded-xl font-semibold text-lg
-              transition disabled:opacity-50 shadow-lg
+              w-full bg-gradient-to-r from-[#F97316] to-[#EC4899]
+              hover:from-[#FB923C] hover:to-[#F472B6]
+              text-[#1C1917] py-4 rounded-xl font-semibold text-lg
+              transition disabled:opacity-50 shadow-lg shadow-orange-500/20
             "
           >
             {isUploading

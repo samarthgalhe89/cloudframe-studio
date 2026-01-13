@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import axios from "axios";
-import { FileUp, Download, Check, Loader2, AlertCircle } from "lucide-react";
+import { FileUp, Download, Check, Loader2, AlertCircle, Upload } from "lucide-react";
 import { toast } from "react-hot-toast";
 
 type AspectRatio = "9:16" | "1:1" | "16:9" | "4:5";
@@ -188,47 +188,58 @@ export default function VideoCropPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#F5F1E8] py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-[#FFFBF5] py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
-                <div className="text-center mb-12">
-                    <h1 className="text-4xl font-extrabold text-[#3B2B1A] mb-4">
-                        AI Smart Video Cropper
-                    </h1>
-                    <p className="text-lg text-[#6B4E2E] max-w-2xl mx-auto">
-                        Upload any video and let our AI automatically resize it for Social Media while keeping the main subject in focus.
-                    </p>
+                {/* Feature Badges */}
+                <div className="flex flex-wrap gap-3 justify-center mb-8">
+                    <div className="px-4 py-2 bg-[#FED7AA] rounded-full text-sm text-[#1C1917] font-medium shadow-sm">
+                        ✨ AI-Powered Cropping
+                    </div>
+                    <div className="px-4 py-2 bg-[#FED7AA] rounded-full text-sm text-[#1C1917] font-medium shadow-sm">
+                        🎯 Smart Subject Detection
+                    </div>
+                    <div className="px-4 py-2 bg-[#FED7AA] rounded-full text-sm text-[#1C1917] font-medium shadow-sm">
+                        ⚡ Instant Format Switch
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                     {/* LEFT COLUMN: Controls & Upload */}
                     <div className="space-y-8">
                         {/* Upload Card */}
-                        <div className="bg-[#FFFDF8] rounded-3xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-[#E7D8C6]">
-                            <h2 className="text-xl font-bold text-[#3B2B1A] mb-4 flex items-center gap-2">
-                                <FileUp className="w-5 h-5 text-[#8B6F47]" />
+                        <div className="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.12)] border-2 border-[#FED7AA]">
+                            <h2 className="text-xl font-bold text-[#1C1917] mb-4 flex items-center gap-2">
+                                <Upload className="w-5 h-5 text-[#F97316]" />
                                 1. Upload Video
                             </h2>
 
                             {!file ? (
-                                <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-[#CAA885] rounded-2xl cursor-pointer hover:bg-[#F9EFF5] transition-colors group">
-                                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <div className="p-4 rounded-full bg-[#F5F1E8] group-hover:bg-[#E7D8C6] transition-colors mb-3">
-                                            <FileUp className="w-8 h-8 text-[#8B6F47]" />
+                                <label className="block border-2 border-dashed border-[#FED7AA] rounded-2xl p-12 text-center cursor-pointer hover:border-[#F97316] hover:bg-[#FFFBF5] transition-all duration-300 group">
+                                    <input
+                                        type="file"
+                                        accept="video/*"
+                                        onChange={handleUpload}
+                                        className="hidden"
+                                    />
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div className="w-16 h-16 bg-gradient-to-br from-[#F97316] to-[#EC4899] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                            <FileUp className="w-8 h-8 text-white" />
                                         </div>
-                                        <p className="mb-2 text-sm text-[#6B4E2E]">
-                                            <span className="font-semibold">Click to upload</span> or drag and drop
-                                        </p>
-                                        <p className="text-xs text-[#8B6F47]">MP4, MOV, AVI up to 100MB</p>
+                                        <div>
+                                            <p className="text-base font-semibold text-[#1C1917] mb-1">
+                                                Click to upload <span className="text-[#78716C]">or drag and drop</span>
+                                            </p>
+                                            <p className="text-sm text-[#78716C]">MP4, MOV, AVI up to 100MB</p>
+                                        </div>
                                     </div>
-                                    <input type="file" className="hidden" accept="video/*" onChange={handleUpload} />
                                 </label>
                             ) : (
-                                <div className="flex items-center justify-between p-4 bg-[#F5F1E8] rounded-xl border border-[#E7D8C6]">
+                                <div className="flex items-center justify-between p-4 bg-[#FFFBF5] rounded-xl border border-[#FED7AA]">
                                     <div className="flex items-center gap-3 overflow-hidden">
-                                        <div className="p-2 bg-[#DDBEA9] rounded-lg">
-                                            <FileUp className="w-5 h-5 text-[#3B2B1A]" />
+                                        <div className="p-2 bg-gradient-to-r from-[#F97316] to-[#EC4899] rounded-lg">
+                                            <FileUp className="w-5 h-5 text-white" />
                                         </div>
-                                        <span className="text-sm font-medium text-[#3B2B1A] truncate max-w-[200px]">
+                                        <span className="text-sm font-medium text-[#1C1917] truncate max-w-[200px]">
                                             {file.name}
                                         </span>
                                     </div>
@@ -241,7 +252,7 @@ export default function VideoCropPage() {
                                             setIsProcessing(false);
                                             setUploading(false);
                                         }}
-                                        className="text-xs text-red-500 hover:text-red-700 font-medium px-2 py-1"
+                                        className="text-xs text-red-400 hover:text-red-300 font-medium px-2 py-1 transition-colors"
                                     >
                                         Remove
                                     </button>
@@ -250,13 +261,13 @@ export default function VideoCropPage() {
 
                             {uploading && (
                                 <div className="mt-4">
-                                    <div className="flex items-center justify-between text-sm text-[#8B6F47] mb-2">
+                                    <div className="flex items-center justify-between text-sm text-[#78716C] mb-2">
                                         <span>Uploading...</span>
-                                        <span className="font-semibold">{uploadProgress}%</span>
+                                        <span className="font-semibold text-[#F97316]">{uploadProgress}%</span>
                                     </div>
-                                    <div className="w-full h-2 bg-[#E7D8C6] rounded-full overflow-hidden">
+                                    <div className="w-full h-2 bg-[#FED7AA]/30 rounded-full overflow-hidden">
                                         <div
-                                            className="h-full bg-[#8B6F47] transition-all duration-300 ease-out"
+                                            className="h-full bg-gradient-to-r from-[#F97316] to-[#EC4899] transition-all duration-300 ease-out"
                                             style={{ width: `${uploadProgress}%` }}
                                         />
                                     </div>
@@ -266,9 +277,9 @@ export default function VideoCropPage() {
 
                         {/* Format Selection - Only show if file selected */}
                         <div className={`transition-all duration-300 ${!file && 'opacity-50 pointer-events-none grayscale'}`}>
-                            <div className="bg-[#FFFDF8] rounded-3xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-[#E7D8C6]">
-                                <h2 className="text-xl font-bold text-[#3B2B1A] mb-4 flex items-center gap-2">
-                                    <Check className="w-5 h-5 text-[#8B6F47]" />
+                            <div className="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.5)] border border-[#FED7AA]">
+                                <h2 className="text-xl font-bold text-[#1C1917] mb-4 flex items-center gap-2">
+                                    <Check className="w-5 h-5 text-[#1C1917]" />
                                     2. Select Format
                                 </h2>
 
@@ -280,12 +291,12 @@ export default function VideoCropPage() {
                                             className={`
                                                 relative p-4 rounded-xl border-2 text-left transition-all duration-200
                                                 ${selectedFormat.aspectRatio === format.aspectRatio
-                                                    ? 'border-[#8B6F47] bg-[#F5F1E8]'
-                                                    : 'border-transparent bg-[#FAF8F3] hover:bg-[#F2EBE0]'}
+                                                    ? 'bg-gradient-to-r from-[#F97316] to-[#EC4899] border-transparent shadow-lg text-white'
+                                                    : 'border-[#FED7AA] bg-white hover:border-[#F97316] text-[#1C1917]'}
                                             `}
                                         >
-                                            <div className="font-semibold text-[#3B2B1A] text-sm mb-1">{format.label}</div>
-                                            <div className="text-[#8B6F47] text-xs">{format.aspectRatio}</div>
+                                            <div className={`font-semibold text-sm mb-1`}>{format.label}</div>
+                                            <div className={`text-xs ${selectedFormat.aspectRatio === format.aspectRatio ? 'text-white/80' : 'text-[#78716C]'}`}>{format.aspectRatio}</div>
                                         </button>
                                     ))}
                                 </div>
@@ -295,19 +306,19 @@ export default function VideoCropPage() {
 
                     {/* RIGHT COLUMN: Preview & Download */}
                     <div className="relative">
-                        <div className="sticky top-8 bg-[#FFFDF8] rounded-3xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-[#E7D8C6] h-auto min-h-[500px] flex flex-col">
-                            <h2 className="text-xl font-bold text-[#3B2B1A] mb-6 flex items-center gap-2">
-                                <FileUp className="w-5 h-5 text-[#8B6F47]" />
+                        <div className="sticky top-8 bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.5)] border border-[#FED7AA] h-auto min-h-[500px] flex flex-col">
+                            <h2 className="text-xl font-bold text-[#1C1917] mb-6 flex items-center gap-2">
+                                <FileUp className="w-5 h-5 text-[#1C1917]" />
                                 Preview Result
                             </h2>
 
-                            <div className="flex-1 bg-[#1A1A1A] rounded-2xl overflow-hidden relative flex items-center justify-center border border-[#E7D8C6]/30">
+                            <div className="flex-1 bg-[#FFFBF5] rounded-2xl overflow-hidden relative flex items-center justify-center border border-[#FED7AA]">
                                 {uploading || isProcessing ? (
-                                    <div className="text-center text-white/50 p-8 animate-pulse">
-                                        <Loader2 className="w-12 h-12 animate-spin mx-auto mb-4 text-[#8B6F47]" />
-                                        <p className="text-lg font-medium text-[#E7D8C6] mb-2">Processing Video...</p>
-                                        <p className="text-sm">Uploading and generating AI crop</p>
-                                        <p className="text-xs mt-2 opacity-50">{uploadProgress}%</p>
+                                    <div className="text-center p-8 animate-pulse">
+                                        <Loader2 className="w-12 h-12 animate-spin mx-auto mb-4 text-[#1C1917]" />
+                                        <p className="text-lg font-medium text-[#1C1917] mb-2">Processing Video...</p>
+                                        <p className="text-sm text-[#1C1917]/70">Uploading and generating AI crop</p>
+                                        <p className="text-xs mt-2 text-[#1C1917] font-semibold">{uploadProgress}%</p>
                                     </div>
                                 ) : processedUrl ? (
                                     <video
@@ -320,8 +331,8 @@ export default function VideoCropPage() {
                                         disablePictureInPicture
                                     />
                                 ) : (
-                                    <div className="text-center text-white/30 p-8">
-                                        <p className="text-sm">Upload a video to see the AI magic</p>
+                                    <div className="text-center p-8">
+                                        <p className="text-sm text-[#1C1917]/70">Upload a video to see the AI magic</p>
                                     </div>
                                 )}
                             </div>
@@ -332,8 +343,8 @@ export default function VideoCropPage() {
                                 className={`
                                     w-full mt-6 py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all
                                     ${processedUrl
-                                        ? 'bg-[#8B6F47] hover:bg-[#6B4E2E] text-white shadow-lg shadow-[#8B6F47]/20 transform hover:-translate-y-0.5'
-                                        : 'bg-[#E7D8C6] text-[#B8A58A] cursor-not-allowed'}
+                                        ? 'bg-gradient-to-r from-[#F97316] to-[#EC4899] hover:from-[#FB923C] hover:to-[#F472B6] text-[#1C1917] shadow-lg shadow-orange-500/20 transform hover:-translate-y-0.5'
+                                        : 'bg-[#FED7AA]/50 text-[#1C1917]/50 cursor-not-allowed'}
                                 `}
                             >
                                 <Download className="w-5 h-5" />

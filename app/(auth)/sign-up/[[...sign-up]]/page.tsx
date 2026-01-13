@@ -5,8 +5,10 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Eye, EyeOff, Mail, Lock, Loader2, Check, X, ArrowLeft } from "lucide-react";
+import { Eye, EyeOff, Loader2, Check, X, ArrowLeft } from "lucide-react";
 import { validatePassword, getPasswordStrength } from "@/lib/password-validation";
+import AuthSplitScreen from "@/components/AuthSplitScreen";
+import Logo from "@/components/Logo";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -80,213 +82,208 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#faf5ec] to-[#f3e8d9] px-4 py-12">
-      <motion.div
-        initial={{ opacity: 0, y: 25, scale: 0.96 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.45, ease: "easeOut" }}
-        className="w-full max-w-md"
-      >
-        <div className="p-8 rounded-3xl bg-[#fffdf8] shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
-          {/* Back Button */}
+    <AuthSplitScreen mode="signup">
+      <div className="w-full">
+        {/* Mobile-only Logo and Back */}
+        <div className="flex flex-col gap-6 mb-8 lg:hidden">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-[#6b4e2e] hover:text-[#3b2b1a] transition-colors mb-6 group"
+            className="inline-flex items-center gap-2 text-[#6b4e2e] hover:text-[#3b2b1a] transition-colors group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             <span className="text-sm font-medium">Back to home</span>
           </Link>
-
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-[#3b2b1a] mb-2">
-              Create your account
-            </h1>
-            <p className="text-[#6b4e2e] text-sm">
-              Start showcasing your media in minutes
-            </p>
-          </div>
-
-          {/* Error Message */}
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm"
-            >
-              {error}
-            </motion.div>
-          )}
-
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Email Input */}
-            <div>
-              <label className="block text-sm font-medium text-[#6b4e2e] mb-2">
-                Email address
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#6b4e2e]/50" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full pl-12 pr-4 py-3 rounded-xl bg-[#faf3e7] border border-[#e7d8c6] text-[#3b2b1a] placeholder:text-[#6b4e2e]/40 focus:ring-2 focus:ring-[#6b4e2e] focus:border-[#6b4e2e] transition-all outline-none"
-                  placeholder="you@example.com"
-                />
-              </div>
-            </div>
-
-            {/* Password Input */}
-            <div>
-              <label className="block text-sm font-medium text-[#6b4e2e] mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#6b4e2e]/50" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full pl-12 pr-12 py-3 rounded-xl bg-[#faf3e7] border border-[#e7d8c6] text-[#3b2b1a] placeholder:text-[#6b4e2e]/40 focus:ring-2 focus:ring-[#6b4e2e] focus:border-[#6b4e2e] transition-all outline-none"
-                  placeholder="Create a strong password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6b4e2e]/50 hover:text-[#6b4e2e] transition"
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-5 w-5" />
-                  ) : (
-                    <Eye className="h-5 w-5" />
-                  )}
-                </button>
-              </div>
-
-              {/* Password Strength Indicator */}
-              {password && passwordStrength && (
-                <div className="mt-3">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs text-[#6b4e2e]">Password strength:</span>
-                    <span className={`text-xs font-semibold capitalize ${strengthColors[passwordStrength]}`}>
-                      {passwordStrength}
-                    </span>
-                  </div>
-                  <div className="h-2 bg-[#e7d8c6] rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{
-                        width:
-                          passwordStrength === "weak"
-                            ? "33%"
-                            : passwordStrength === "medium"
-                              ? "66%"
-                              : "100%",
-                      }}
-                      className={`h-full transition-all ${passwordStrength === "weak"
-                        ? "bg-red-500"
-                        : passwordStrength === "medium"
-                          ? "bg-yellow-500"
-                          : "bg-green-500"
-                        }`}
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* Password Requirements Checklist */}
-              {password && (
-                <div className="mt-4 space-y-2">
-                  <PasswordRequirement
-                    met={passwordValidation.checks.minLength}
-                    text="At least 8 characters"
-                  />
-                  <PasswordRequirement
-                    met={passwordValidation.checks.hasUppercase}
-                    text="One uppercase letter"
-                  />
-                  <PasswordRequirement
-                    met={passwordValidation.checks.hasSpecialChar}
-                    text="One special character"
-                  />
-                </div>
-              )}
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={isLoading || !passwordValidation.isValid}
-              className="w-full bg-[#6b4e2e] text-white rounded-full py-3 text-[15px] font-semibold hover:bg-[#7a5335] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-6"
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                  Creating account...
-                </>
-              ) : (
-                "Create account"
-              )}
-            </button>
-          </form>
-
-          {/* Divider */}
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-[#e7d8c6]"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-[#fffdf8] text-[#6b4e2e]">
-                Or continue with
-              </span>
-            </div>
-          </div>
-
-          {/* Google Sign Up */}
-          <button
-            type="button"
-            onClick={() => signIn('google', { callbackUrl: '/home' })}
-            className="w-full flex items-center justify-center gap-3 px-6 py-3 rounded-xl border-2 border-[#e7d8c6] bg-white hover:bg-[#faf3e7] transition-colors text-[#3b2b1a] font-medium"
-          >
-            <svg className="w-5 h-5" viewBox="0 0 24 24">
-              <path
-                fill="#4285F4"
-                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-              />
-              <path
-                fill="#34A853"
-                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-              />
-              <path
-                fill="#FBBC05"
-                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-              />
-              <path
-                fill="#EA4335"
-                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-              />
-            </svg>
-            Continue with Google
-          </button>
-
-          {/* Footer */}
-          <div className="mt-6 text-center">
-            <p className="text-sm text-[#7a5335]">
-              Already have an account?{" "}
-              <Link
-                href="/sign-in"
-                className="text-[#6b4e2e] font-semibold hover:underline"
-              >
-                Sign in
-              </Link>
-            </p>
+          <div className="flex justify-center">
+            <Logo size={48} className="lg:hidden" />
           </div>
         </div>
-      </motion.div>
-    </div>
+
+
+
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-[#1C1917] mb-2">
+            Create account
+          </h1>
+          <p className="text-[#78716C] text-sm">
+            Start showcasing your media in minutes.
+          </p>
+        </div>
+
+        {/* Error Message */}
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm"
+          >
+            {error}
+          </motion.div>
+        )}
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Email Input */}
+          <div>
+            <label className="block text-sm font-medium text-[#1C1917] mb-1.5">
+              Email address
+            </label>
+            <div className="relative">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full px-4 py-3 rounded-xl bg-white border border-[#E7E5E4] text-[#1C1917] placeholder:text-[#A8A29E] focus:ring-2 focus:ring-[#F97316] focus:border-transparent transition-all outline-none"
+                placeholder="name@gamil.com"
+              />
+            </div>
+          </div>
+
+          {/* Password Input */}
+          <div>
+            <label className="block text-sm font-medium text-[#1C1917] mb-1.5">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full px-4 py-3 rounded-xl bg-white border border-[#E7E5E4] text-[#1C1917] placeholder:text-[#A8A29E] focus:ring-2 focus:ring-[#F97316] focus:border-transparent transition-all outline-none"
+                placeholder="Create a strong password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#A8A29E] hover:text-[#78716C] transition"
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5" />
+                ) : (
+                  <Eye className="h-5 w-5" />
+                )}
+              </button>
+            </div>
+
+            {/* Password Strength Indicator */}
+            {password && passwordStrength && (
+              <div className="mt-3">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs text-[#78716C]">Password strength:</span>
+                  <span className={`text-xs font-semibold capitalize ${strengthColors[passwordStrength]}`}>
+                    {passwordStrength}
+                  </span>
+                </div>
+                <div className="h-1.5 bg-[#E7E5E4] rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{
+                      width:
+                        passwordStrength === "weak"
+                          ? "33%"
+                          : passwordStrength === "medium"
+                            ? "66%"
+                            : "100%",
+                    }}
+                    className={`h-full transition-all ${passwordStrength === "weak"
+                      ? "bg-red-500"
+                      : passwordStrength === "medium"
+                        ? "bg-yellow-500"
+                        : "bg-green-500"
+                      }`}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Password Requirements Checklist */}
+            {password && (
+              <div className="mt-4 space-y-2">
+                <PasswordRequirement
+                  met={passwordValidation.checks.minLength}
+                  text="At least 8 characters"
+                />
+                <PasswordRequirement
+                  met={passwordValidation.checks.hasUppercase}
+                  text="One uppercase letter"
+                />
+                <PasswordRequirement
+                  met={passwordValidation.checks.hasSpecialChar}
+                  text="One special character"
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={isLoading || !passwordValidation.isValid}
+            className="w-full bg-[#1C1917] hover:bg-[#000000] text-white rounded-xl py-3 text-sm font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-black/10"
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Creating account...
+              </>
+            ) : (
+              "Create account"
+            )}
+          </button>
+        </form>
+
+        {/* Divider */}
+        <div className="relative my-8">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-[#E7E5E4]"></div>
+          </div>
+          <div className="relative flex justify-center text-xs uppercase tracking-widest">
+            <span className="px-4 bg-[#FFFBF5] text-[#A8A29E]">
+              Or continue with
+            </span>
+          </div>
+        </div>
+
+        {/* Google Sign Up */}
+        <button
+          type="button"
+          onClick={() => signIn('google', { callbackUrl: '/home' })}
+          className="w-full flex items-center justify-center gap-3 px-6 py-3 rounded-xl border border-[#E7E5E4] bg-white hover:bg-[#FAFAFA] hover:border-[#D6D3D1] transition-all text-[#1C1917] font-semibold text-sm"
+        >
+          <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <path
+              fill="#4285F4"
+              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+            />
+            <path
+              fill="#34A853"
+              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+            />
+            <path
+              fill="#FBBC05"
+              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+            />
+            <path
+              fill="#EA4335"
+              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+            />
+          </svg>
+          Google
+        </button>
+
+        {/* Footer */}
+        <div className="mt-8 text-center text-sm text-[#78716C]">
+          Already have an account?{" "}
+          <Link
+            href="/sign-in"
+            className="text-[#F97316] font-bold hover:underline"
+          >
+            Sign in
+          </Link>
+        </div>
+      </div>
+    </AuthSplitScreen>
   );
 }
 
