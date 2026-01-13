@@ -190,7 +190,7 @@ export default function SignInPage() {
 
         {/* Footer */}
         <div className="mt-8 text-center text-sm text-[#78716C]">
-          New to Frameo?{" "}
+          New to Cloudframe Studio?{" "}
           <Link
             href="/sign-up"
             className="text-[#F97316] font-bold hover:underline"

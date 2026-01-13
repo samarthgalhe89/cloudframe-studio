@@ -1,4 +1,4 @@
-# Frameo
+# Cloudframe Studio
 
 A full-stack SaaS web application for uploading, compressing, previewing, and managing videos and images using Cloudinary. Built for creators and developers to efficiently handle heavy media files and generate social-media-ready content.
 
@@ -31,8 +31,8 @@ A full-stack SaaS web application for uploading, compressing, previewing, and ma
 ### **1. Clone the Repository**
 
 ```bash
-git clone https://github.com/samarthgalhe89/frameo.git
-cd frameo
+git clone https://github.com/samarthgalhe89/cloudframe-studio
+cd cloudframe-studio
 ```
 
 ### **2. Install Dependencies**
@@ -80,7 +80,7 @@ npm run dev
 ## **Folder Structure**
 
 ```
-frameo/
+cloudframe-studio/
 ├── app/                # Next.js app directory (pages, API routes)
 ├── components/         # Reusable React components
 ├── prisma/             # Prisma schema and migrations

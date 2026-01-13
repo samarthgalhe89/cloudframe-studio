@@ -30,35 +30,34 @@ const contentVariants: any = {
 
 export default function AuthSplitScreen({ children, mode }: AuthSplitScreenProps) {
     const isSignIn = mode === "signin";
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
     return (
         <div className="min-h-screen w-full relative overflow-hidden bg-[#FFFBF5]">
             {/* 
         Container Logic:
-        We have two absolute panels each taking 50% width.
-        - Brand Panel (Color):
-          - Sign In: Left (x: 0%)
-          - Sign Up: Right (x: 100%)
-        - Form Panel (White):
-          - Sign In: Right (x: 100%)
-          - Sign Up: Left (x: 0%)
-        
-        'initial' is set to the opposite state to simulate the slide entering from the 'previous' page.
+        We have two absolute panels each taking 50% width on Desktop.
+        - Brand Panel (Color): Desktop Only.
+        - Form Panel (White): 
+            - Mobile: Full width, stuck at x:0.
+            - Desktop: Slides Left/Right based on mode.
       */}
 
-            {/* Desktop Fixed Back Button */}
-            {/* 
-        This button stays fixed at the top-right corner.
-        - Sign In: Sits over Form (White) -> Dark Text
-        - Sign Up: Sits over Brand (Dark) -> White Text
-      */}
-            <div className="hidden lg:block absolute top-8 right-8 z-50">
+            {/* Fixed Back Button (Universal) */}
+            <div className="absolute top-8 right-8 z-50">
                 <Link
                     href="/"
                     className={`text-sm font-bold transition-colors duration-500
             ${isSignIn
                             ? "text-[#1C1917] hover:text-[#F97316]"
-                            : "text-white/90 hover:text-white"
+                            : "text-[#1C1917] hover:text-[#F97316] lg:text-white/90 lg:hover:text-white"
                         }
           `}
                 >
@@ -69,8 +68,8 @@ export default function AuthSplitScreen({ children, mode }: AuthSplitScreenProps
             {/* Form Panel Container - White Background */}
             <motion.div
                 className="absolute top-0 left-0 h-full w-full lg:w-1/2 bg-[#FFFBF5] z-0 flex flex-col items-center justify-center p-6 sm:p-12 lg:p-24"
-                initial={{ x: isSignIn ? "0%" : "100%" }} // Simulating coming from the other side
-                animate={{ x: isSignIn ? "100%" : "0%" }} // Sign In -> Right Side. Sign Up -> Left Side.
+                initial={{ x: isMobile ? "0%" : (isSignIn ? "0%" : "100%") }}
+                animate={{ x: isMobile ? "0%" : (isSignIn ? "100%" : "0%") }}
                 transition={transition}
             >
                 <motion.div
@@ -80,13 +79,7 @@ export default function AuthSplitScreen({ children, mode }: AuthSplitScreenProps
                     animate="visible"
                     className="w-full max-w-sm space-y-8"
                 >
-                    {/* Mobile Back Link */}
-                    <div className="absolute top-6 left-6 lg:hidden">
-                        <Link href="/" className="flex items-center gap-2 text-[#78716C] hover:text-[#1C1917] transition">
-                            <ArrowLeft className="w-4 h-4" />
-                            <span className="text-sm font-medium">Home</span>
-                        </Link>
-                    </div>
+                    {/* Mobile Back Link - Removed in favor of the Universal Top-Right button to reduce clutter */}
                     {children}
                 </motion.div>
             </motion.div>
@@ -122,7 +115,7 @@ function BrandContent({ isSignIn }: { isSignIn: boolean }) {
                 className="relative z-10 flex items-center gap-3"
             >
                 <Logo size={48} />
-                <span className="text-2xl font-bold tracking-tight">Frameo</span>
+                <span className="text-2xl font-bold tracking-tight">Cloudframe Studio</span>
             </motion.div>
 
             <motion.div
@@ -147,7 +140,7 @@ function BrandContent({ isSignIn }: { isSignIn: boolean }) {
                 variants={contentVariants} initial="hidden" animate="visible"
                 className="relative z-10 text-xs text-white/30 font-mono"
             >
-                © 2026 Frameo Inc.
+                © 2026 Cloudframe Studio Inc.
             </motion.div>
         </>
     );

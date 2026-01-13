@@ -89,7 +89,7 @@ export default function LandingPage() {
           <div className="flex items-center gap-3">
             <Logo size={40} />
             <span className="text-xl font-bold tracking-tight text-[#1C1917]">
-              Frameo
+              Cloudframe Studio
             </span>
           </div>
 
@@ -319,7 +319,7 @@ export default function LandingPage() {
             />
             <FaqItem
               q="Can I use this for images too?"
-              a="Yes! Frameo is a full media hub. You can upload, optimize, and format images for Instagram, Twitter, and more."
+              a="Yes! Cloudframe Studio is a full media hub. You can upload, optimize, and format images for Instagram, Twitter, and more."
             />
           </div>
         </div>
@@ -330,7 +330,7 @@ export default function LandingPage() {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 text-xs text-[#78716C] sm:flex-row sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
             <Logo size={24} />
-            <span className="font-semibold text-[#1C1917]">Frameo</span>
+            <span className="font-semibold text-[#1C1917]">Cloudframe Studio</span>
           </div>
           <p>© {new Date().getFullYear()} All rights reserved.</p>
           <div className="flex gap-6">
