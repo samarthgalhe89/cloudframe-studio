@@ -84,23 +84,12 @@ export default function SignUpPage() {
   return (
     <AuthSplitScreen mode="signup">
       <div className="w-full">
-        {/* Mobile-only Logo and Back */}
-        <div className="flex flex-col gap-6 mb-8 lg:hidden">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-[#6b4e2e] hover:text-[#3b2b1a] transition-colors group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span className="text-sm font-medium">Back to home</span>
-          </Link>
-          <div className="flex justify-center">
-            <Logo size={48} className="lg:hidden" />
-          </div>
+        {/* Mobile-only Logo */}
+        <div className="flex justify-center mb-6 lg:hidden">
+          <Logo size={48} />
         </div>
 
-
-
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <h1 className="text-3xl font-bold text-[#1C1917] mb-2">
             Create account
           </h1>
@@ -121,7 +110,7 @@ export default function SignUpPage() {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
           {/* Email Input */}
           <div>
             <label className="block text-sm font-medium text-[#1C1917] mb-1.5">
@@ -234,7 +223,7 @@ export default function SignUpPage() {
         </form>
 
         {/* Divider */}
-        <div className="relative my-8">
+        <div className="relative my-6 sm:my-8">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-[#E7E5E4]"></div>
           </div>
@@ -273,7 +262,7 @@ export default function SignUpPage() {
         </button>
 
         {/* Footer */}
-        <div className="mt-8 text-center text-sm text-[#78716C]">
+        <div className="mt-6 sm:mt-8 pb-4 text-center text-sm text-[#78716C]">
           Already have an account?{" "}
           <Link
             href="/sign-in"

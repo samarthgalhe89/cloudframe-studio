@@ -70,7 +70,7 @@ export default function AppLayout({
   const pageInfo = getPageInfo();
 
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer lg:drawer-open min-h-screen bg-[#FFFBF5]">
       <input
         id="sidebar-drawer"
         type="checkbox"
@@ -78,7 +78,7 @@ export default function AppLayout({
         checked={sidebarOpen}
         onChange={() => setSidebarOpen(!sidebarOpen)}
       />
-      <div className="drawer-content flex flex-col">
+      <div className="drawer-content flex flex-col min-h-screen bg-[#FFFBF5]">
         {/* Navbar */}
         <header className="w-full bg-white border-b border-[#FED7AA] shadow-sm">
           <div className="navbar max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -117,15 +117,18 @@ export default function AppLayout({
           </div>
         </header>
         {/* Page content */}
-        <main className="flex-grow">
+        <main className="flex-grow bg-[#FFFBF5]">
           <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 my-8">
             {children}
           </div>
         </main>
       </div>
-      <div className="drawer-side">
-        <label htmlFor="sidebar-drawer" className="drawer-overlay"></label>
-        <aside className="bg-white-strong w-64 h-full flex flex-col border-r border-[#FED7AA]">
+      <div className="drawer-side z-40">
+        <label
+          htmlFor="sidebar-drawer"
+          className={`drawer-overlay ${!sidebarOpen ? 'lg:hidden' : ''}`}
+        ></label>
+        <aside className="bg-white w-64 min-h-screen flex flex-col border-r border-[#FED7AA]">
           <div className="flex items-center justify-center gap-3 py-6">
             <Logo size={55} className="flex-shrink-0 drop-shadow-lg" />
             <div className="text-lg font-bold text-[#1C1917]">

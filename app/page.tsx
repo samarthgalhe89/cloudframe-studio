@@ -86,9 +86,9 @@ export default function LandingPage() {
       {/* Top Bar */}
       <header className="sticky top-0 z-40 border-b border-[#FED7AA] bg-[#FFFBF5]/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <Logo size={40} />
-            <span className="text-xl font-bold tracking-tight text-[#1C1917]">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Logo size={32} className="sm:w-10 sm:h-10" />
+            <span className="text-base sm:text-xl font-bold tracking-tight text-[#1C1917]">
               Cloudframe Studio
             </span>
           </div>
@@ -100,16 +100,16 @@ export default function LandingPage() {
             <a href="#faq" className="hover:text-[#F97316] transition">FAQ</a>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/sign-in"
-              className="hidden rounded-full border border-[#FED7AA] px-4 py-2 text-sm font-semibold text-[#78716C] hover:bg-[#FED7AA]/20 sm:inline-block transition"
+              className="inline-block rounded-full border border-[#FED7AA] px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-[#78716C] hover:bg-[#FED7AA]/20 transition"
             >
               Sign in
             </Link>
             <Link
               href="/sign-up"
-              className="rounded-full bg-gradient-to-r from-[#F97316] to-[#EC4899] px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-orange-500/20 hover:from-[#FB923C] hover:to-[#F472B6] transition transform hover:-translate-y-0.5"
+              className="rounded-full bg-gradient-to-r from-[#F97316] to-[#EC4899] px-3 py-1.5 sm:px-5 sm:py-2 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-orange-500/20 hover:from-[#FB923C] hover:to-[#F472B6] transition transform hover:-translate-y-0.5"
             >
               Get started
             </Link>

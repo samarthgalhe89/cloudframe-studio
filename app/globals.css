@@ -52,4 +52,15 @@
   .gradient-sunset {
     background: linear-gradient(135deg, #F97316, #EC4899);
   }
+
+  /* Fix drawer overlay on mobile - completely remove dark space */
+  @media (max-width: 1023px) {
+    .drawer-side {
+      display: none !important;
+    }
+
+    .drawer-toggle:checked~.drawer-side {
+      display: block !important;
+    }
+  }
 }

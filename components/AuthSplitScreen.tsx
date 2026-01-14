@@ -40,7 +40,7 @@ export default function AuthSplitScreen({ children, mode }: AuthSplitScreenProps
     }, []);
 
     return (
-        <div className="min-h-screen w-full relative overflow-hidden bg-[#FFFBF5]">
+        <div className="min-h-screen w-full relative overflow-hidden lg:overflow-hidden bg-[#FFFBF5]">
             {/* 
         Container Logic:
         We have two absolute panels each taking 50% width on Desktop.
@@ -51,10 +51,10 @@ export default function AuthSplitScreen({ children, mode }: AuthSplitScreenProps
       */}
 
             {/* Fixed Back Button (Universal) */}
-            <div className="absolute top-8 right-8 z-50">
+            <div className="absolute top-4 sm:top-8 right-4 sm:right-8 z-50">
                 <Link
                     href="/"
-                    className={`text-sm font-bold transition-colors duration-500
+                    className={`text-xs sm:text-sm font-bold transition-colors duration-500
             ${isSignIn
                             ? "text-[#1C1917] hover:text-[#F97316]"
                             : "text-[#1C1917] hover:text-[#F97316] lg:text-white/90 lg:hover:text-white"
@@ -67,7 +67,7 @@ export default function AuthSplitScreen({ children, mode }: AuthSplitScreenProps
 
             {/* Form Panel Container - White Background */}
             <motion.div
-                className="absolute top-0 left-0 h-full w-full lg:w-1/2 bg-[#FFFBF5] z-0 flex flex-col items-center justify-center p-6 sm:p-12 lg:p-24"
+                className="relative lg:absolute top-0 left-0 min-h-screen lg:h-full w-full lg:w-1/2 bg-[#FFFBF5] z-0 flex flex-col items-center justify-start lg:justify-center p-6 py-12 sm:p-12 lg:p-24 overflow-y-auto"
                 initial={{ x: isMobile ? "0%" : (isSignIn ? "0%" : "100%") }}
                 animate={{ x: isMobile ? "0%" : (isSignIn ? "100%" : "0%") }}
                 transition={transition}
@@ -77,7 +77,7 @@ export default function AuthSplitScreen({ children, mode }: AuthSplitScreenProps
                     variants={contentVariants}
                     initial="hidden"
                     animate="visible"
-                    className="w-full max-w-sm space-y-8"
+                    className="w-full max-w-sm space-y-8 my-auto"
                 >
                     {/* Mobile Back Link - Removed in favor of the Universal Top-Right button to reduce clutter */}
                     {children}
