@@ -76,7 +76,7 @@ export default function VideoCropPage() {
         try {
             // 1. Get signature
             const sigRes = await axios.post("/api/cloudinary-signature");
-            const { signature, timestamp, apiKey, cloudName, folder } = sigRes.data;
+            const { signature, timestamp, apiKey, cloudName, folder, eager } = sigRes.data;
 
             // 2. Upload to Cloudinary
             const formData = new FormData();
@@ -85,6 +85,7 @@ export default function VideoCropPage() {
             formData.append("timestamp", timestamp.toString());
             formData.append("signature", signature);
             formData.append("folder", folder);
+            formData.append("eager", eager); // Include eager to match signature
             formData.append("resource_type", "video");
 
             const uploadRes = await axios.post(
