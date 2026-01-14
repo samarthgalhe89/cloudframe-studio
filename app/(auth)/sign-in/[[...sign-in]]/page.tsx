@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Eye, EyeOff, Loader2, ArrowLeft } from "lucide-react";
+import { Eye, EyeOff, Loader2, ArrowLeft, AlertTriangle } from "lucide-react";
 import AuthSplitScreen from "@/components/AuthSplitScreen";
 import Logo from "@/components/Logo";
 
@@ -16,6 +16,20 @@ export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isWebView, setIsWebView] = useState(false);
+
+  // Detect if running in WebView
+  useEffect(() => {
+    const ua = navigator.userAgent || navigator.vendor;
+    const isInAppBrowser = (
+      ua.includes('FBAN') || ua.includes('FBAV') || // Facebook
+      ua.includes('Instagram') || // Instagram
+      ua.includes('Twitter') || // Twitter
+      ua.includes('Line/') || // Line
+      ua.includes('wv') // Generic WebView
+    );
+    setIsWebView(isInAppBrowser);
+  }, []);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -67,6 +81,25 @@ export default function SignInPage() {
             className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm"
           >
             {error}
+          </motion.div>
+        )}
+
+        {/* WebView Warning */}
+        {isWebView && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-sm"
+          >
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold mb-1">Google Sign-in Not Available</p>
+                <p className="text-xs">
+                  You're using an in-app browser. To sign in with Google, please open this page in your phone's browser (Chrome, Safari, Firefox).
+                </p>
+              </div>
+            </div>
           </motion.div>
         )}
 
