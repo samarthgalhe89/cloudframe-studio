@@ -14,7 +14,7 @@ export default function LandingPage() {
               <ImageIcon className="h-5 w-5" />
             </div>
             <span className="text-lg font-extrabold tracking-tight text-[#4A351E]">
-              Cloudinary Showcase
+              Cloudframe Studio
             </span>
           </div>
 
@@ -146,7 +146,7 @@ export default function LandingPage() {
               Built for visual-heavy projects
             </h2>
             <p className="mt-3 text-sm text-[#7A6750] sm:text-base">
-              From portfolios to SaaS dashboards, Cloudinary Showcase keeps your
+              From portfolios to SaaS dashboards, Cloudframe Studio keeps your
               media fast, organized, and ready to share.
             </p>
           </div>
@@ -268,7 +268,7 @@ export default function LandingPage() {
           <div className="mt-8 space-y-6">
             <FaqItem
               q="Do I need a Cloudinary account?"
-              a="Yes. Cloudinary Showcase sits on top of your existing Cloudinary account, so your media always stays in your own cloud."
+              a="Yes. Cloudframe Studio sits on top of your existing Cloudinary account, so your media always stays in your own cloud."
             />
             <FaqItem
               q="What kind of media can I upload?"
@@ -285,7 +285,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="border-t border-[#E0D2BD] bg-[#F1E4D5]">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 text-xs text-[#7A6750] sm:flex-row sm:px-6 lg:px-8">
-          <p>© {new Date().getFullYear()} Cloudinary Showcase. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Cloudframe Studio. All rights reserved.</p>
           <div className="flex gap-4">
             <a href="#features" className="hover:text-[#6B5335]">
               Features

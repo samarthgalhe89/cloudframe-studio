@@ -61,7 +61,7 @@ export default function AppLayout({
         };
       default:
         return {
-          title: 'Frameo',
+          title: 'Cloudframe Studio',
           description: 'AI-powered media processing'
         };
     }
@@ -129,7 +129,7 @@ export default function AppLayout({
           <div className="flex items-center justify-center gap-3 py-6">
             <Logo size={55} className="flex-shrink-0 drop-shadow-lg" />
             <div className="text-lg font-bold text-[#1C1917]">
-              Frameo
+              Cloudframe Studio
             </div>
           </div>
           <ul className="menu p-4 w-full text-base-content flex-grow">
