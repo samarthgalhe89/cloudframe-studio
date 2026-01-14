@@ -244,7 +244,7 @@ export default function LandingPage() {
               icon={<Crop className="h-6 w-6 text-white" />}
               gradient="from-[#F97316] to-[#EC4899]"
               title="AI Smart Cropping"
-              description="Automatically detect subjects and resize videos for Reels, TikToks, and Shorts instantly."
+              description="Automatically detect subjects and resize videos for Reels, and Shorts instantly."
             />
             <FeatureCard
               icon={<Zap className="h-6 w-6 text-white" />}
@@ -296,7 +296,7 @@ export default function LandingPage() {
               label="03"
               icon={<Share2 className="w-5 h-5" />}
               title="Ready to Post"
-              body="Download your assets perfectly formatted for TikTok, IG, and YouTube."
+              body="Download your assets perfectly formatted for IG and YouTube."
             />
           </div>
         </div>
