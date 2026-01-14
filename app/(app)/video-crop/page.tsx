@@ -17,7 +17,7 @@ interface CropFormat {
 
 const formats: CropFormat[] = [
     {
-        label: "Instagram Reel / TikTok",
+        label: "Instagram Reel",
         aspectRatio: "9:16",
         width: 1080,
         height: 1920,
