@@ -57,7 +57,7 @@ function VideoUpload() {
       formData.append("signature", uploadConfig.signature);
       formData.append("folder", uploadConfig.folder);
       formData.append("resource_type", "video");
-      formData.append("eager", "q_auto,f_mp4"); // auto-compress + mp4
+      formData.append("eager", uploadConfig.eager); // Use the signed eager value
 
       const cloudinaryResponse = await axios.post(cloudinaryUrl, formData, {
         onUploadProgress: (event) => {

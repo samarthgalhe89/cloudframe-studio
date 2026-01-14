@@ -18,11 +18,13 @@ export async function POST(req: NextRequest) {
 
   const timestamp = Math.round(Date.now() / 1000);
   const folder = "video-uploads";
+  const eager = "q_auto,f_mp4";
 
   // ALL parameters that will be sent in upload
   const paramsToSign = {
     timestamp,
     folder,
+    eager,
   };
 
   const signature = cloudinary.utils.api_sign_request(
@@ -36,5 +38,6 @@ export async function POST(req: NextRequest) {
     timestamp,
     signature,
     folder,
+    eager,
   });
 }
