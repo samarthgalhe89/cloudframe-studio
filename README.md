@@ -14,7 +14,7 @@ An AI-powered, premium media management SaaS platform built with Next.js, TypeSc
 - **Micro-animations**: Smooth, professional interactions throughout
 
 ### **🤖 AI-Powered Media Processing**
-- **Smart Cropping**: Automatically detect subjects and resize videos for Reels, TikToks, and Shorts
+- **Smart Cropping**: Automatically detect subjects and resize videos for Reels and Shorts
 - **Ultra Compression**: Reduce file sizes by up to 90% without losing visual quality
 - **Social Media Formatting**: One-click transformation for Instagram, Twitter, Facebook, and more
 
