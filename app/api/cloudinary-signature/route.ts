@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 
   const timestamp = Math.round(Date.now() / 1000);
   const folder = "video-uploads";
-  const eager = "q_auto,f_mp4";
+  const eager = "q_auto:low,f_mp4,vc_auto";
 
   // ALL parameters that will be sent in upload
   const paramsToSign = {

@@ -69,13 +69,28 @@ function VideoUpload() {
 
       const cloudinaryData = cloudinaryResponse.data;
 
+      // Get compressed size from eager transformation result
+      let compressedSize = cloudinaryData.bytes; // fallback to original
+
+      if (cloudinaryData.eager && cloudinaryData.eager.length > 0) {
+        // Use the size of the first eager transformation (the compressed version)
+        compressedSize = cloudinaryData.eager[0].bytes;
+      }
+
+      console.log("Compression Results:", {
+        original: file.size,
+        uploaded: cloudinaryData.bytes,
+        compressed: compressedSize,
+        savings: ((file.size - compressedSize) / file.size * 100).toFixed(2) + "%"
+      });
+
       // 3) Save metadata in DB
       await axios.post("/api/video-save", {
         title,
         description,
         publicId: cloudinaryData.public_id,
         originalSize: file.size,
-        compressedSize: cloudinaryData.bytes,
+        compressedSize: compressedSize,
         duration: cloudinaryData.duration || 0,
       });
 
