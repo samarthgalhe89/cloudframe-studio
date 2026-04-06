@@ -30,9 +30,10 @@ export const authOptions: NextAuthOptions = {
                     throw new Error('Email and password are required');
                 }
 
-                // Find user by email
+                // Find user by email (normalize to lowercase to match signup)
+                const normalizedEmail = credentials.email.toLowerCase().trim();
                 const user = await prisma.user.findUnique({
-                    where: { email: credentials.email },
+                    where: { email: normalizedEmail },
                 });
 
                 if (!user || !user.password) {
@@ -47,6 +48,11 @@ export const authOptions: NextAuthOptions = {
 
                 if (!isValidPassword) {
                     throw new Error('Invalid email or password');
+                }
+
+                // Check if email is verified
+                if (!user.emailVerified) {
+                    throw new Error('EMAIL_NOT_VERIFIED');
                 }
 
                 return {
@@ -76,14 +82,19 @@ export const authOptions: NextAuthOptions = {
                     });
 
                     if (!existingUser) {
-                        // Create new user for Google OAuth
-                        const createData = {
-                            email: user.email!,
-                            name: user.name || undefined,
-                        };
-
+                        // Create new user for Google OAuth (auto-verified)
                         await prisma.user.create({
-                            data: createData,
+                            data: {
+                                email: user.email!,
+                                name: user.name || undefined,
+                                emailVerified: true,
+                            },
+                        });
+                    } else if (!existingUser.emailVerified) {
+                        // If user exists but unverified, verify them via Google OAuth
+                        await prisma.user.update({
+                            where: { email: user.email! },
+                            data: { emailVerified: true },
                         });
                     }
                     return true;

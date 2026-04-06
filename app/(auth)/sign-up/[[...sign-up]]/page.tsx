@@ -70,18 +70,11 @@ export default function SignUpPage() {
         return;
       }
 
-      // Auto sign in after successful signup
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
-
-      if (result?.ok) {
-        router.push("/home");
-        router.refresh();
+      // Redirect to verify email page
+      if (data.redirect) {
+        router.push(`${data.redirect}&p=${encodeURIComponent(password)}`);
       } else {
-        setError("Account created but failed to sign in. Please try signing in manually.");
+        router.push("/sign-in");
       }
     } catch {
       setError("An error occurred. Please try again.");

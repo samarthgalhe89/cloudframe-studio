@@ -185,15 +185,18 @@ export default function LandingPage() {
 
               {/* Video area */}
               <div className="relative overflow-hidden rounded-xl bg-black aspect-[16/9] group">
-                <video
-                  ref={videoRef}
-                  src="/sample-preview.mp4"
-                  className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition"
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                />
+                {/* Wrapper to crop out bottom watermark */}
+                <div className="absolute inset-0" style={{ bottom: '-12%' }}>
+                  <video
+                    ref={videoRef}
+                    src="/sample-preview.mp4"
+                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition"
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                  />
+                </div>
 
                 {/* Overlay Badge */}
                 <div className="absolute top-3 right-3 bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1 rounded-full text-xs font-semibold text-white flex items-center gap-2">

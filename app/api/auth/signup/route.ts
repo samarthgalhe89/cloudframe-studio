@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { validatePassword, hashPassword } from '@/lib/password-validation';
 import { prisma } from '@/lib/prisma';
+import { createVerificationCode } from '@/lib/otp';
+import { sendVerificationEmail } from '@/lib/mail';
 
 export async function POST(req: NextRequest) {
     try {
@@ -35,12 +37,36 @@ export async function POST(req: NextRequest) {
             );
         }
 
+        const normalizedEmail = email.toLowerCase().trim();
+
         // Check if user already exists
         const existingUser = await prisma.user.findUnique({
-            where: { email: email.toLowerCase() },
+            where: { email: normalizedEmail },
         });
 
         if (existingUser) {
+            // If user exists but is not verified, resend verification code
+            if (!existingUser.emailVerified && existingUser.password) {
+                try {
+                    const code = await createVerificationCode(normalizedEmail);
+                    await sendVerificationEmail(normalizedEmail, code);
+                } catch (error: unknown) {
+                    if (error instanceof Error && error.message === 'RATE_LIMITED') {
+                        return NextResponse.json(
+                            { error: 'Too many attempts. Please wait before trying again.' },
+                            { status: 429 }
+                        );
+                    }
+                }
+                return NextResponse.json(
+                    {
+                        message: 'Verification code resent',
+                        redirect: `/verify-email?email=${encodeURIComponent(normalizedEmail)}`,
+                    },
+                    { status: 200 }
+                );
+            }
+
             return NextResponse.json(
                 { error: 'Email already in use' },
                 { status: 409 }
@@ -50,29 +76,24 @@ export async function POST(req: NextRequest) {
         // Hash password
         const hashedPassword = await hashPassword(password);
 
-        // Create user
-        const user = await prisma.user.create({
+        // Create user (unverified)
+        await prisma.user.create({
             data: {
-                email: email.toLowerCase(),
+                email: normalizedEmail,
                 password: hashedPassword,
                 name: name || null,
-            },
-            select: {
-                id: true,
-                email: true,
-                name: true,
-                createdAt: true,
+                emailVerified: false,
             },
         });
 
+        // Generate OTP and send verification email
+        const code = await createVerificationCode(normalizedEmail);
+        await sendVerificationEmail(normalizedEmail, code);
+
         return NextResponse.json(
             {
-                message: 'Account created successfully',
-                user: {
-                    id: user.id,
-                    email: user.email,
-                    name: user.name,
-                }
+                message: 'Account created. Please verify your email.',
+                redirect: `/verify-email?email=${encodeURIComponent(normalizedEmail)}`,
             },
             { status: 201 }
         );
@@ -84,3 +105,4 @@ export async function POST(req: NextRequest) {
         );
     }
 }
+

@@ -44,6 +44,18 @@ export default function SignInPage() {
       });
 
       if (result?.error) {
+        // Check if the error is about unverified email
+        if (result.error.includes("EMAIL_NOT_VERIFIED")) {
+          // Trigger a resend of the verification code
+          await fetch("/api/auth/resend-code", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: email.toLowerCase().trim() }),
+          });
+          // Redirect to verify page
+          router.push(`/verify-email?email=${encodeURIComponent(email.toLowerCase().trim())}`);
+          return;
+        }
         setError("Invalid email or password");
       } else if (result?.ok) {
         router.push("/home");

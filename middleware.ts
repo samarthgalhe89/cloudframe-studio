@@ -29,6 +29,7 @@ export default withAuth(
           "/",
           "/sign-in",
           "/sign-up",
+          "/verify-email",
           "/pricing",
           "/easy-wins",
           "/features",
