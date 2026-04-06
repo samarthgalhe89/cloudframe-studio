@@ -67,7 +67,7 @@ export const authOptions: NextAuthOptions = {
         error: '/sign-in',
     },
     callbacks: {
-        async signIn({ user, account, profile }) {
+        async signIn({ user, account }) {
             if (account?.provider === 'google') {
                 try {
                     // Check if user exists
@@ -77,13 +77,13 @@ export const authOptions: NextAuthOptions = {
 
                     if (!existingUser) {
                         // Create new user for Google OAuth
-                        const createData: { email: string; name: string | null } = {
+                        const createData = {
                             email: user.email!,
-                            name: user.name ?? null,
+                            name: user.name || undefined,
                         };
 
                         await prisma.user.create({
-                            data: createData as any,
+                            data: createData,
                         });
                     }
                     return true;

@@ -64,9 +64,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload, onDelete }) =>
     (1 - Number(video.compressedSize) / Number(video.originalSize)) * 100
   );
 
-  useEffect(() => {
-    setPreviewError(false);
-  }, [isHovered]);
+
 
   const handlePreviewError = () => {
     setPreviewError(true);
@@ -87,7 +85,10 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload, onDelete }) =>
         overflow-hidden
         cursor-pointer
       "
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => {
+        setIsHovered(true);
+        setPreviewError(false);
+      }}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Thumbnail / Preview */}

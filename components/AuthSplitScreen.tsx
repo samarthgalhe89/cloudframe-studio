@@ -2,9 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Logo from "@/components/Logo";
-import { ArrowLeft } from "lucide-react";
 
 interface AuthSplitScreenProps {
     children: React.ReactNode;
@@ -19,7 +18,7 @@ const transition = {
     mass: 1,
 };
 
-const contentVariants: any = {
+const contentVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
         opacity: 1,

@@ -96,7 +96,7 @@ export default function SignInPage() {
               <div>
                 <p className="font-semibold mb-1">Google Sign-in Not Available</p>
                 <p className="text-xs">
-                  You're using an in-app browser. To sign in with Google, please open this page in your phone's browser (Chrome, Safari, Firefox).
+                  You&apos;re using an in-app browser. To sign in with Google, please open this page in your phone&apos;s browser (Chrome, Safari, Firefox).
                 </p>
               </div>
             </div>

@@ -5,7 +5,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Eye, EyeOff, Loader2, Check, X, ArrowLeft, AlertTriangle } from "lucide-react";
+import { Eye, EyeOff, Loader2, Check, X, AlertTriangle } from "lucide-react";
 import { validatePassword, getPasswordStrength } from "@/lib/password-validation";
 import AuthSplitScreen from "@/components/AuthSplitScreen";
 import Logo from "@/components/Logo";
@@ -41,11 +41,6 @@ export default function SignUpPage() {
     strong: "text-green-600",
   };
 
-  const strengthBgColors = {
-    weak: "bg-red-100",
-    medium: "bg-yellow-100",
-    strong: "bg-green-100",
-  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -88,7 +83,7 @@ export default function SignUpPage() {
       } else {
         setError("Account created but failed to sign in. Please try signing in manually.");
       }
-    } catch (err) {
+    } catch {
       setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
@@ -135,7 +130,7 @@ export default function SignUpPage() {
               <div>
                 <p className="font-semibold mb-1">Google Sign-in Not Available</p>
                 <p className="text-xs">
-                  You're using an in-app browser. To sign in with Google, please open this page in your phone's browser (Chrome, Safari, Firefox).
+                  You&apos;re using an in-app browser. To sign in with Google, please open this page in your phone&apos;s browser (Chrome, Safari, Firefox).
                 </p>
               </div>
             </div>

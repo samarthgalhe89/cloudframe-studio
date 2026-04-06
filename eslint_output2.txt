@@ -1,0 +1,85 @@
+﻿
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\app\(app)\home\page.tsx
+  12:10  warning  'error' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  62:14  warning  'error' is defined but never used           @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\app\(app)\layout.tsx
+  32:9  warning  'router' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\app\(app)\video-crop\page.tsx
+    5:44  warning  'AlertCircle' is defined but never used  @typescript-eslint/no-unused-vars
+  161:26  warning  'error' is defined but never used        @typescript-eslint/no-unused-vars
+  186:18  warning  'e' is defined but never used            @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\app\(auth)\sign-in\[[...sign-in]]\page.tsx
+   8:32   warning  'ArrowLeft' is defined but never used                            @typescript-eslint/no-unused-vars
+  52:14   warning  'err' is defined but never used                                  @typescript-eslint/no-unused-vars
+  99:22   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  99:110  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\app\(auth)\sign-up\[[...sign-up]]\page.tsx
+    8:42   warning  'ArrowLeft' is defined but never used                            @typescript-eslint/no-unused-vars
+   44:9    warning  'strengthBgColors' is assigned a value but never used            @typescript-eslint/no-unused-vars
+   91:14   warning  'err' is defined but never used                                  @typescript-eslint/no-unused-vars
+  138:22   error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  138:110  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\app\api\cloudinary-signature\route.ts
+  12:28  warning  'req' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\app\api\image-upload\route.ts
+  18:18  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\app\api\video-upload\route.ts
+  17:18  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\app\api\videos\route.ts
+  6:27  warning  'request' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\app\page.tsx
+    6:3  warning  'ImageIcon' is defined but never used         @typescript-eslint/no-unused-vars
+    9:3  warning  'Clock' is defined but never used             @typescript-eslint/no-unused-vars
+   10:3  warning  'ShieldCheck' is defined but never used       @typescript-eslint/no-unused-vars
+   11:3  warning  'Wand2' is defined but never used             @typescript-eslint/no-unused-vars
+   18:3  warning  'FileVideo' is defined but never used         @typescript-eslint/no-unused-vars
+  440:7  warning  'styleEl' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\components\AuthSplitScreen.tsx
+   7:10  warning  'ArrowLeft' is defined but never used     @typescript-eslint/no-unused-vars
+  22:24  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\components\VideoCard.tsx
+   68:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\components\VideoCard.tsx:68:5
+  66 |
+  67 |   useEffect(() => {
+> 68 |     setPreviewError(false);
+     |     ^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  69 |   }, [isHovered]);
+  70 |
+  71 |   const handlePreviewError = () => {  react-hooks/set-state-in-effect
+  111:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @next/next/no-img-element
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\lib\auth.ts
+  70:39  warning  'profile' is defined but never used       @typescript-eslint/no-unused-vars
+  86:49  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\postcss.config.js
+  1:1  warning  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\tailwind.config.js
+   2:1   warning  Assign object to a variable before exporting as module default  import/no-anonymous-default-export
+  10:13  error    A `require()` style import is forbidden                         @typescript-eslint/no-require-imports
+
+C:\Users\ASUS\OneDrive\Desktop\SAMARTH\WebDCourse\ChaiOrCode\FULL_STACK PROJECTS\cloudinary-saas\cloudinary-saas\types\next-auth.d.ts
+  1:8  warning  'NextAuth' is defined but never used  @typescript-eslint/no-unused-vars
+
+Γ£û 35 problems (10 errors, 25 warnings)
+
